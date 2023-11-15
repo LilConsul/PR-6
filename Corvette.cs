@@ -32,7 +32,7 @@ namespace PR_6 {
             if (!IsSailsSet)
                 throw new InvalidOperationException("Sails not set.");
             
-            var damage = _ran.Next(0, 10);
+            var damage = _ran.Next(0, 25);
             TakeDamage(damage);
         }
 

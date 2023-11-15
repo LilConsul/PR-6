@@ -23,7 +23,7 @@ namespace PR_6 {
 
         public override void Move() {
             if (!EngineStarted)
-                throw new InvalidOperationException("Engine not started.");
+                return;
             
             var damage = _ran.Next(0, 10);
             var burned = _ran.Next(5, 15);

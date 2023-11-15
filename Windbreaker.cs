@@ -30,11 +30,11 @@ namespace PR_6 {
 
         public override void Move() {
             if (!IsSatSailsSet)
-                throw new InvalidOperationException("Sails not set.");
+               return;
             var damage = _ran.Next(0, 3);
             TakeDamage(damage);
             
-            if(_ran.Next(0, 5) > 2)
+            if(_ran.Next(0, 20) > 2)
                 FurlSails();
         }
 
