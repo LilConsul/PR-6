@@ -3,54 +3,48 @@ using System;
 namespace PR_6 {
     public class Windbreaker : IShip, ISailable {
         private readonly Random _ran = new Random();
-        public string Name { get; set; }
-        private int _health;
-        private bool _sailsSet;
-
+        public bool IsSatSailsSet{ get; set; }
         public event EventHandler ShipSinking; 
-        public event EventHandler SailsSet; 
         public event EventHandler SailsFurled; 
         
         public Windbreaker(string name) {
             Name = name;
-            _health = 100;
-            _sailsSet = false;
+            Health = 100;
+            IsSatSailsSet = false;
         }
         
-        public void TakeDamage(int damage) {
-            _health -= damage;
-            if (_health <= 0)
+        public override void TakeDamage(int damage) {
+            Health -= damage;
+            if (Health <= 0)
                 StartSinking(); 
         }
 
         public void SetSail() {
-            _sailsSet = true;
-            OnSailsSet(); 
+            IsSatSailsSet = true;
         }
 
         public void FurlSails() {
-            _sailsSet = false;
+            IsSatSailsSet = false;
             OnSailsFurled();
         }
 
-        public void Move() {
-            if (!_sailsSet)
+        public override void Move() {
+            if (!IsSatSailsSet)
                 throw new InvalidOperationException("Sails not set.");
-            
-            var damage = _ran.Next(0, 10);
+            var damage = _ran.Next(0, 3);
             TakeDamage(damage);
+            
+            if(_ran.Next(0, 5) > 2)
+                FurlSails();
         }
 
-        public void StartSinking() {
+        public override void StartSinking() {
+            IsSatSailsSet = false;
             OnShipSinking(); 
         }
 
         protected virtual void OnShipSinking() {
             ShipSinking?.Invoke(this, EventArgs.Empty);
-        }
-
-        protected virtual void OnSailsSet() {
-            SailsSet?.Invoke(this, EventArgs.Empty);
         }
 
         protected virtual void OnSailsFurled() {

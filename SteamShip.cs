@@ -3,28 +3,26 @@ using System;
 namespace PR_6 {
     public class SteamShip : IShip, ISteamPowered {
         private readonly Random _ran = new Random();
-        private bool _engineStarted;
-        public string Name { get; set; }
-        private int _health;
-        private int _amountOfFuel;
+        public bool EngineStarted { get; set; }
+        public int AmountOfFuel { get; set; }
         
         public event EventHandler ShipMoved; 
         public event EventHandler ShipSinking;
 
-        public SteamShip(string name, uint amountOfFuel) {
+        public SteamShip(string name) {
             Name = name;
-            _amountOfFuel = (int)amountOfFuel;
-            _health = 100;
+            AmountOfFuel = 250;
+            Health = 100;
         }
 
         private void BurnFuel(int burned) {
-            _amountOfFuel -= burned;
-            if (_amountOfFuel < 0)
+            AmountOfFuel -= burned;
+            if (AmountOfFuel < 0)
                 StartSinking();
         }
 
-        public void Move() {
-            if (!_engineStarted)
+        public override void Move() {
+            if (!EngineStarted)
                 throw new InvalidOperationException("Engine not started.");
             
             var damage = _ran.Next(0, 10);
@@ -34,19 +32,19 @@ namespace PR_6 {
             OnShipMoved();
         }
         
-        public void TakeDamage(int damage) {
-            _health -= damage;
-            if (_health < 0)
+        public override void TakeDamage(int damage) {
+            Health -= damage;
+            if (Health < 0)
                 StartSinking();
         }
 
-        public void StartSinking() {
-            _engineStarted = false;
+        public override void StartSinking() {
+            EngineStarted = false;
             OnShipSinking();
         }
 
         public void StartEngine() {
-            _engineStarted = true;
+            EngineStarted = true;
         }
         
         protected virtual void OnShipMoved() {
