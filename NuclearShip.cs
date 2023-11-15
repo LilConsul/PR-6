@@ -1,10 +1,16 @@
-namespace PR_6 {
-    public class Ship : IShip, ISteamPowered {
-        private string _name;
-        private int _health;
+using System;
 
-        public Ship(string name) {
-            _name = name;
+namespace PR_6 {
+    public class NuclearShip : IShip, ISteamPowered {
+        private readonly Random _ran = new Random();
+        public string Name { get; set; }
+        private int _health;
+        private bool _engineStarted;
+        
+        public event EventHandler ShipSinking;
+        
+        public NuclearShip(string name) {
+            Name = name;
             _health = 100;
         }
         
@@ -14,12 +20,23 @@ namespace PR_6 {
                 StartSinking();
         }
 
+        public void Move() {
+            if (!_engineStarted)
+                throw new Exception("The Engine is not started!");
+            var damage = _ran.Next(0, 10);
+            TakeDamage(damage);
+        }
         public void StartSinking() {
-            throw new System.NotImplementedException();
+            _engineStarted = false;
+            OnShipSinking();
         }
 
         public void StartEngine() {
-            throw new System.NotImplementedException();
+            _engineStarted = true;
+        }
+        
+        protected virtual void OnShipSinking() {
+            ShipSinking?.Invoke(this, EventArgs.Empty);
         }
     }
 }

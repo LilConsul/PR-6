@@ -1,5 +1,5 @@
 namespace PR_6 {
-    public class ISteamPowered {
-        
+    public interface ISteamPowered {
+        void StartEngine();
     }
 }

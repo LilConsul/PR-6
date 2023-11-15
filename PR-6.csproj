@@ -46,14 +46,21 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Corvette.cs" />
         <Compile Include="Form1.cs">
             <SubType>Form</SubType>
         </Compile>
         <Compile Include="Form1.Designer.cs">
             <DependentUpon>Form1.cs</DependentUpon>
         </Compile>
+        <Compile Include="ISailable.cs" />
+        <Compile Include="IShip.cs" />
+        <Compile Include="ISteamPowered.cs" />
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="NuclearShip.cs" />
+        <Compile Include="SteamShip.cs" />
+        <Compile Include="Windbreaker.cs" />
         <EmbeddedResource Include="Properties\Resources.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>

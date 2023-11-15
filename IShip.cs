@@ -1,5 +1,8 @@
 namespace PR_6 {
-    public interface IShip {
-        
+    interface IShip {
+
+        void Move();
+        void TakeDamage(int damage);
+        void StartSinking();
     }
 }

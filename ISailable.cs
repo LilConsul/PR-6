@@ -1,6 +1,5 @@
 namespace PR_6 {
-    public interface IPowered {
+    public interface ISailable {
         void FurlSails();       
-
     }
 }
